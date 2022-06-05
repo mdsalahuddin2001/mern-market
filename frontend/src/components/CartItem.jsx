@@ -6,27 +6,8 @@ import { useCartContext } from '../contexts/cartContext';
 
 const CartItem = ({ product }) => {
   const { toggleAmount } = useCartContext();
-  const { id, name, price, discountedPrice, image, max, amount } = product;
+  const { id, name, price, discountedPrice, image, amount } = product;
   const { removeItem } = useCartContext();
-
-  // const increase = () => {
-  //   setAmount((oldAmount) => {
-  //     let tempAmount = oldAmount + 1;
-  //     if (tempAmount > max) {
-  //       tempAmount = max;
-  //     }
-  //     return tempAmount;
-  //   });
-  // };
-  // const decrease = () => {
-  //   setAmount((oldAmount) => {
-  //     let tempAmount = oldAmount - 1;
-  //     if (tempAmount < 1) {
-  //       tempAmount = 1;
-  //     }
-  //     return tempAmount;
-  //   });
-  // };
   const increase = () => {
     toggleAmount(id, 'increase');
   };

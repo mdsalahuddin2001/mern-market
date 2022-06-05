@@ -1,14 +1,27 @@
 // product image size ==>> 218x192
 // avatar image size ==>> 50x50
 // color image size ==> 50x50
-
+const bcrypt = require('bcryptjs');
 const data = {
+  users: [
+    {
+      name: 'Abdur Rahman',
+      email: 'mdahmede442@gmail.com',
+      password: bcrypt.hashSync('123456'),
+      role: 'admin',
+    },
+    {
+      name: 'john doe',
+      email: 'johndoe@gmail.com',
+      password: bcrypt.hashSync('123456'),
+    },
+  ],
   products: [
     {
       id: 1,
       name: 'Nike Slim Shirt',
       slug: 'nike-slim-shirt',
-      summery: 'Write your products summary in within 120 words',
+      summary: 'Write your products summary in within 120 words',
       description:
         'write your products description in details. You can write about 1000 words for your product description',
       category: 'shirts',
@@ -79,7 +92,7 @@ const data = {
       id: 2,
       name: 'Petite Table Lamp',
       slug: 'petite-table-lamp',
-      summery: 'Write your products summary in within 120 words',
+      summary: 'Write your products summary in within 120 words',
       description:
         'write your products description in details. You can write about 1000 words for your product description',
       category: 'electronics',
@@ -151,7 +164,7 @@ const data = {
       id: 3,
       name: 'Nike Air Max Motion LW Racer',
       slug: 'nike-air-max-motion-lw-racer',
-      summery: 'Write your products summary in within 120 words',
+      summary: 'Write your products summary in within 120 words',
       description:
         'write your products description in details. You can write about 1000 words for your product description',
       category: 'shoes',
@@ -222,7 +235,7 @@ const data = {
       id: 4,
       name: 'The North Face Raedonda Boot Sneaker',
       slug: 'the-north-face-raedonda-bot-sneaker',
-      summery: 'Write your products summary in within 120 words',
+      summary: 'Write your products summary in within 120 words',
       description:
         'write your products description in details. You can write about 1000 words for your product description',
       category: 'shirts',
@@ -294,7 +307,7 @@ const data = {
       id: 5,
       name: 'Asus Vivobook S15',
       slug: 'asus-vivobook-s-15',
-      summery: 'Write your products summary in within 120 words',
+      summary: 'Write your products summary in within 120 words',
       description:
         'write your products description in details. You can write about 1000 words for your product description',
       category: 'shirts',
@@ -365,7 +378,7 @@ const data = {
       id: 6,
       name: 'Samsung Galaxy A20',
       slug: 'samsung-galaxy-a-20',
-      summery: 'Write your products summary in within 120 words',
+      summary: 'Write your products summary in within 120 words',
       description:
         'write your products description in details. You can write about 1000 words for your product description',
       category: 'electronics',
@@ -437,7 +450,7 @@ const data = {
       id: 7,
       name: 'Dell Latitude D6584',
       slug: 'dell-latitude-d-6584',
-      summery: 'Write your products summary in within 120 words',
+      summary: 'Write your products summary in within 120 words',
       description:
         'write your products description in details. You can write about 1000 words for your product description',
       category: 'shoes',
@@ -508,7 +521,7 @@ const data = {
       id: 8,
       name: 'Quoted T-Sirt',
       slug: 'quoted-t-shirt',
-      summery: 'Write your products summary in within 120 words',
+      summary: 'Write your products summary in within 120 words',
       description:
         'write your products description in details. You can write about 1000 words for your product description',
       category: 'shirts',

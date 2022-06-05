@@ -8,7 +8,7 @@ function ProductsContainer({ products }) {
         <h2>Featured Products</h2>
         <div className="product-center">
           {products.map((product) => (
-            <Product key={product.id} {...product} />
+            <Product key={product._id} {...product} />
           ))}
         </div>
       </div>

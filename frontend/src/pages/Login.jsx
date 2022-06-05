@@ -1,16 +1,35 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import FormContainer from '../components/FormContainer';
 import Input from '../components/Input';
+import { useUserContext } from '../contexts/userContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { login, userInfo } = useUserContext();
+  const navigate = useNavigate();
+  // Submit Handler for Login
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      return toast.error('Please provide email and password');
+    }
+    login({ email, password });
+  };
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/');
+    }
+  }, [userInfo, navigate]);
+
   return (
     <LoginWrapper className="section section-center">
       <h2>Sign In</h2>
-      <FormContainer>
+      <FormContainer onSubmit={submitHandler}>
         <Input
           label="email"
           type="email"

@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
-const FormContainer = ({ children }) => {
-  return <FormContainerWrapper>{children}</FormContainerWrapper>;
+const FormContainer = ({ children, onSubmit }) => {
+  return (
+    <FormContainerWrapper onSubmit={onSubmit}>{children}</FormContainerWrapper>
+  );
 };
 
 const FormContainerWrapper = styled.form`

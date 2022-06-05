@@ -61,7 +61,7 @@ function Product(product) {
         {countInStock > 0 ? (
           <button
             className="btn add-to-cart-btn"
-            onClick={() => addToCart({ id: product.id, amount: 1, product })}
+            onClick={() => addToCart({ id: product._id, amount: 1, product })}
           >
             <BsFillCartCheckFill />
             Add to cart

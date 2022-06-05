@@ -23,8 +23,11 @@ const AppProvider = ({ children }) => {
   const fetchProducts = async () => {
     dispatch({ type: FETCH_PRODUCTS_BEGIN });
     try {
-      const { data } = await axios.get('/api/products');
-      dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: data });
+      const {
+        data: { products },
+      } = await axios.get('/api/products');
+
+      dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: products });
     } catch (error) {
       dispatch({ type: FETCH_PRODUCTS_FAIL, payload: getError(error) });
     }
@@ -33,7 +36,7 @@ const AppProvider = ({ children }) => {
   const fetchProduct = async (slug) => {
     dispatch({ type: FETCH_PRODUCT_BEGIN });
     try {
-      const { data } = await axios.get(`/api/products/slug/${slug}`);
+      const { data } = await axios.get(`/api/products/${slug}`);
       dispatch({ type: FETCH_PRODUCT_SUCCESS, payload: data });
     } catch (error) {
       dispatch({ type: FETCH_PRODUCT_FAIL, payload: getError(error) });
