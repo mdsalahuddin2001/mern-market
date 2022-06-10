@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { BsCart } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCartContext } from '../contexts/cartContext';
 import { useUserContext } from '../contexts/userContext';
 import { IoMdArrowDropdownCircle } from 'react-icons/io';
@@ -9,9 +9,12 @@ const Navbar = () => {
   const { total_items } = useCartContext();
   const { userInfo, logout } = useUserContext();
   const [showDropdown, setShowDropdown] = useState(false);
-
+  const navigate = useNavigate();
   // Sign out handler
-
+  const logoutHandler = () => {
+    logout();
+    navigate('/login');
+  };
   return (
     <NavbarWrapper>
       <div className="navbar-container section-center">
@@ -40,14 +43,14 @@ const Navbar = () => {
               className={`dropdown-items ${showDropdown && 'show-items'}`}
             >
               <li>
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/profile">User Profile</Link>
               </li>
               <li>
                 <Link to="/order-history">Order History</Link>
               </li>
               <hr />
               <li>
-                <span onClick={logout}>Sign Out</span>
+                <span onClick={logoutHandler}>Sign Out</span>
               </li>
             </ul>
           </div>
@@ -106,8 +109,9 @@ const NavbarWrapper = styled.nav`
       background: var(--primary-color);
       display: block;
       position: absolute;
-      width: 100%;
-      top: 210%;
+      width: 150px;
+      top: 175%;
+      z-index: 100;
       opacity: 0;
       display: none;
       transition: all 0.4s;

@@ -1,0 +1,20 @@
+{
+  "name": "mern-market",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd backend && npm install && cd ../frontend && npm install && npm run build",
+    "start": "node backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdsalahuddin2001/mern-market.git"
+  },
+  "author": "MD Salahuddin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mdsalahuddin2001/mern-market/issues"
+  },
+  "homepage": "https://github.com/mdsalahuddin2001/mern-market#readme"
+}

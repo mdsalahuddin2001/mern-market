@@ -17,6 +17,7 @@ function ProductsContainer({ products }) {
 }
 
 const ProductContainerWrapper = styled.section`
+  background-color: #fff;
   .product-center {
     display: flex;
     flex-wrap: wrap;

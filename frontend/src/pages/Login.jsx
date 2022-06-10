@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import FormContainer from '../components/FormContainer';
@@ -11,8 +12,10 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const { login, userInfo } = useUserContext();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get('redirect');
   // Submit Handler for Login
-  const submitHandler = async (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -22,12 +25,15 @@ const Login = () => {
   };
   useEffect(() => {
     if (userInfo) {
-      navigate('/');
+      navigate(redirect ? `/${redirect}` : '/');
     }
-  }, [userInfo, navigate]);
+  }, [userInfo, navigate, redirect]);
 
   return (
     <LoginWrapper className="section section-center">
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
       <h2>Sign In</h2>
       <FormContainer onSubmit={submitHandler}>
         <Input
@@ -46,7 +52,10 @@ const Login = () => {
           <button className="btn">Sign In</button>
         </div>
         <p>
-          Don't have account? <Link to="signup">Create your account</Link>
+          Don't have account?{' '}
+          <Link to={redirect ? `/signup?redirect=${redirect}` : '/signup'}>
+            Create your account
+          </Link>
         </p>
       </FormContainer>
     </LoginWrapper>

@@ -1,7 +1,7 @@
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middlewares/async');
 const User = require('../models/User');
-
+const bcrypt = require('bcryptjs');
 // @desc     Register user
 // @route    POST ==>> /api/auth/register
 // @access   Public
@@ -9,7 +9,7 @@ exports.register = asyncHandler(async (req, res, next) => {
   const { name, email, password } = req.body;
   //   check if email already exists
   const emailAlreadyExists = await User.findOne({ email });
-  if (email) {
+  if (emailAlreadyExists) {
     return next(new ErrorResponse(400, 'Email already exists'));
   }
   //   first register user is an admin
@@ -17,9 +17,8 @@ exports.register = asyncHandler(async (req, res, next) => {
   const role = isFirstAccount ? 'admin' : 'user';
   //   create user
   const user = await User.create({ name, email, password, role });
-  res
-    .status(201)
-    .json({ succes: true, message: 'Account created successfully' });
+
+  sendTokenResponse(user, 201, res);
 });
 // @desc     Login user
 // @route    POST ==>> /api/auth/login
@@ -42,7 +41,23 @@ exports.login = asyncHandler(async (req, res, next) => {
   }
   sendTokenResponse(user, 200, res);
 });
+// @desc      Update user profile
+// @route     PUT /api/auth/update
+// @access    Private
+exports.updateProfile = asyncHandler(async (req, res, next) => {
+  const fieldsToUpdate = {
+    name: req.body.name,
+    email: req.body.email,
+    password: await bcrypt.hash(req.body.password, 10),
+  };
 
+  const user = await User.findByIdAndUpdate(req.user._id, fieldsToUpdate, {
+    new: true,
+    runValidators: true,
+  });
+
+  sendTokenResponse(user, 200, res);
+});
 // Send token response
 const sendTokenResponse = (user, statusCode, res) => {
   // create token

@@ -27,6 +27,7 @@ const reducer = (state, action) => {
       const newItem = {
         id,
         name: product.name,
+        slug: product.slug,
         amount,
         image: product.image,
         price: product.price,

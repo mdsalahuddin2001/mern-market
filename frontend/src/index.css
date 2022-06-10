@@ -59,7 +59,7 @@ html {
 }
 body {
   font-family: 'Poppins', sans-serif;
-  background: var(--clr-white);
+  background: #efefef;
   color: var(--clr-grey-1);
   line-height: 1.5;
   font-size: 1.4rem;
@@ -73,7 +73,11 @@ a {
 }
 hr {
   border: none;
-  border-top: 1px solid var(--clr-black);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+input,
+textarea {
+  font: inherit;
 }
 h1,
 h2,

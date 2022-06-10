@@ -11,7 +11,7 @@ const CartTotals = () => {
             Total: <span>{total_amount}Tk.</span>
           </h5>
         </article>
-        <Link to="/checkout" className="btn">
+        <Link to="/shipping" className="btn">
           proceed to checkout
         </Link>
       </div>

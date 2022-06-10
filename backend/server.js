@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const app = express();
 require('dotenv').config();
@@ -9,6 +10,7 @@ const errorHandler = require('./middlewares/error');
 const seedRouter = require('./routes/seedRoutes');
 const productsRouter = require('./routes/productsRoutes');
 const authRouter = require('./routes/authRoutes');
+const orderRouter = require('./routes/orderRoutes');
 // body parser
 app.use(express.json());
 // Connect Database
@@ -17,9 +19,16 @@ connectDB();
 app.use('/api/seed', seedRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/products', productsRouter);
+app.use('/api/orders', orderRouter);
 
 app.use((req, res, next) => {
   res.status(404).json({ message: 'No route matched' });
+});
+
+const _dirname = path.resolve();
+app.use(express.static(path.join(_dirname, '/frontend/build')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(_dirname, '/frontend/build/index.html'));
 });
 app.use(errorHandler);
 const PORT = process.env.PORT || 5000;

@@ -17,6 +17,7 @@ const SingleProductPage = () => {
   const navigate = useNavigate();
   useEffect(() => {
     fetchProduct(slug);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
   useEffect(() => {
