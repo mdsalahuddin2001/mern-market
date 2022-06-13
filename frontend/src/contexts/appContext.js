@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useReducer, useState } from 'react';
 import { getError } from '../utils/getError';
 import appReducer from '../reducers/appReducer';
 import {
@@ -19,6 +19,7 @@ const initialState = {
 };
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   // Fetch  Products
   const fetchProducts = async () => {
     dispatch({ type: FETCH_PRODUCTS_BEGIN });
@@ -42,9 +43,25 @@ const AppProvider = ({ children }) => {
       dispatch({ type: FETCH_PRODUCT_FAIL, payload: getError(error) });
     }
   };
-
+  // toggle sidebar
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+  // close sidebar
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
   return (
-    <AppContext.Provider value={{ ...state, fetchProducts, fetchProduct }}>
+    <AppContext.Provider
+      value={{
+        ...state,
+        fetchProducts,
+        fetchProduct,
+        isSidebarOpen,
+        toggleSidebar,
+        closeSidebar,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

@@ -12,11 +12,17 @@ import PlaceOrder from './pages/PlaceOrder';
 import Profile from './pages/Profile';
 import Shipping from './pages/Shipping';
 import Signup from './pages/Signup';
+import Sidebar from './components/Sidebar';
+import Search from './pages/Search';
+import ProtectedRoutes from './pages/ProtectedRoutes';
+import Dashboard from './pages/Dashboard';
+import AdminRoutes from './components/AdminRoutes';
 function App() {
   return (
     <BrowserRouter>
       <ToastContainer position="top-right" limit={1} />
       <Navbar />
+      <Sidebar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product/:slug" element={<SingleProduct />} />
@@ -26,9 +32,40 @@ function App() {
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/payment-method" element={<PaymentMethod />} />
         <Route path="/order" element={<PlaceOrder />} />
-        <Route path="/order/:id" element={<Order />} />
-        <Route path="/order-history" element={<OrderHistory />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/order/:id"
+          element={
+            <ProtectedRoutes>
+              <Order />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/order-history"
+          element={
+            <ProtectedRoutes>
+              <OrderHistory />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoutes>
+              <Profile />
+            </ProtectedRoutes>
+          }
+        />
+        <Route path="/search" element={<Search />} />
+        {/* Admin Routes */}
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminRoutes>
+              <Dashboard />
+            </AdminRoutes>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

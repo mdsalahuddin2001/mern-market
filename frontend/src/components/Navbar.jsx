@@ -1,11 +1,17 @@
 import styled from 'styled-components';
 import { BsCart } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 import { useCartContext } from '../contexts/cartContext';
 import { useUserContext } from '../contexts/userContext';
 import { IoMdArrowDropdownCircle } from 'react-icons/io';
 import { useState } from 'react';
+import { NavDropdown } from 'react-bootstrap';
+import { useGlobalContext } from '../contexts/appContext';
+import { FaBars } from 'react-icons/fa';
+import Searchbox from './Searchbox';
 const Navbar = () => {
+  const { toggleSidebar } = useGlobalContext();
   const { total_items } = useCartContext();
   const { userInfo, logout } = useUserContext();
   const [showDropdown, setShowDropdown] = useState(false);
@@ -19,17 +25,18 @@ const Navbar = () => {
     <NavbarWrapper>
       <div className="navbar-container section-center">
         <div className="nav-center">
+          <div className="sidebar-toggle-btn">
+            <button type="button" onClick={toggleSidebar}>
+              <FaBars />
+            </button>
+          </div>
           <div className="logo">
             <Link to="/">
               <h4>Market</h4>
             </Link>
           </div>
         </div>
-        <ul>
-          <li>Home</li>
-          <li>Products</li>
-          <li>Seller</li>
-        </ul>
+        <Searchbox />
         {userInfo ? (
           <div className="dropdown-container">
             <p
@@ -59,6 +66,22 @@ const Navbar = () => {
             Sign In
           </Link>
         )}
+        {userInfo && userInfo.role === 'admin' && (
+          <NavDropdown title="Admin" id="admin-nav-dropdown">
+            <LinkContainer to="/admin/dashboard">
+              <NavDropdown.Item>Dashboard</NavDropdown.Item>
+            </LinkContainer>
+            <LinkContainer to="/admin/productlist">
+              <NavDropdown.Item>Products</NavDropdown.Item>
+            </LinkContainer>
+            <LinkContainer to="/admin/orderlist">
+              <NavDropdown.Item>Orders</NavDropdown.Item>
+            </LinkContainer>
+            <LinkContainer to="/admin/userlist">
+              <NavDropdown.Item>Users</NavDropdown.Item>
+            </LinkContainer>
+          </NavDropdown>
+        )}
         <Link to="/cart">
           <div className="cart-icon">
             <button>
@@ -79,10 +102,27 @@ const NavbarWrapper = styled.nav`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .nav-center {
+    display: flex;
+    align-items: center;
+    button {
+      margin-right: 2.5rem;
+    }
+  }
+  button {
+    margin-right: 2rem;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    font-size: 2.5rem;
+    margin: 0;
   }
   h4 {
     font-size: 3rem;
     color: #fff;
+    margin: 0;
   }
   ul {
     display: flex;
@@ -91,6 +131,9 @@ const NavbarWrapper = styled.nav`
     li {
       margin: 1rem;
     }
+  }
+  a {
+    font-size: 1.5rem;
   }
   .dropdown-container {
     position: relative;
@@ -152,7 +195,7 @@ const NavbarWrapper = styled.nav`
       justify-content: center;
       border-radius: 50%;
       position: absolute;
-      top: -30%;
+      top: -20%;
       right: -50%;
     }
   }
